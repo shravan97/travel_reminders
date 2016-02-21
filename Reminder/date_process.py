@@ -2,9 +2,10 @@ import time
 
 class dateProcessor:
 	"""class dateProcessor"""
-	def __init__(date):
+	def __init__(self , date):
 		self.date = date
 
-	def extract_yr():
-		elements = date.split('-')
-		print elements
+	def extract_elements(self):
+		d = self.date
+		elements = d.split('-')
+		return elements
