@@ -1,4 +1,5 @@
 import time
+import datetime
 
 class dateProcessor:
 	"""class dateProcessor"""
@@ -6,35 +7,36 @@ class dateProcessor:
 		self.date = date
 		self.Time = Time
 
-	def extract_elements(self , k):
-		if k:
-			d = self.date
-			elements = d.split('-')
-			return elements
-		t = self.Time
-		return t.split(':')		
+	@staticmethod
+	def get_curr_date():
+		curr = [time.strftime("%y") , time.strftime("%m") ,time.strftime("%d")]
+		return curr
 
 	def set_cron_elements(self):
-		inp_date = self.extract_elements(1)
-		inp_Time = self.extract_elements(0)
-		curr_yr = time.strftime("%y")
-		curr_month = time.strftime("%m")
-		curr_day = time.strftime("%d")
-		
+		curr = self.get_curr_date()
+
+		t=self.Time
+		d=self.date
+
+		inp_Time = [t.hour , t.minute]
+		inp_date = [d.year , d.month , d.day]
+
 		cron_elements = {'time':[] , 'date':[]}
 		cron_elements['time'] = inp_Time
 
-		if int(inp_date[0])-int(curr_yr)-2000 >1:
+		if int(inp_date[0])-int(curr[0])-2000 >1:
 			return -1
-		elif int(inp_date[0])-int(curr_yr)-2000 ==1 :
-			if int(inp_date[1])-int(curr_month) > 0:
+		elif int(inp_date[0])-int(curr[0])-2000 ==1 :
+			if int(inp_date[1])-int(curr[1]) > 0:
 				return -1
-			elif int(inp_date[1])-int(curr_month) == 0:
-				if int(inp_date[2])-int(curr_day) >=0:
+			elif int(inp_date[1])-int(curr[1]) == 0:
+				if int(inp_date[2])-int(curr[2]) >=0:
 					return -1
 				else:
 					cron_elements['date'] = inp_date
 			else:
 				cron_elements['date'] = inp_date
 		else:
-			cron_elements['date'] = inp_date			
+			cron_elements['date'] = inp_date
+
+		return 	cron_elements
