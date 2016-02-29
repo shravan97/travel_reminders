@@ -1,8 +1,8 @@
 import time
 import datetime
 
-class dateProcessor:
-	"""class dateProcessor"""
+class date_time_Processor:
+	"""class for processing the input date and time and set the cron variables"""
 	def __init__(self , date , Time):
 		self.date = date
 		self.Time = Time
